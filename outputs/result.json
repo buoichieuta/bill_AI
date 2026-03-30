@@ -1,0 +1,59 @@
+{
+  "SELLER": "QUÁ ĐÃ BBQ",
+  "SELLER_BBOX": [90, 515, 153, 825],
+  "ADDRESS": "171 Cao Thắng, P. 12, Q. 10",
+  "ADDRESS_BBOX": [162, 495, 192, 868],
+  "TAX_CODE": null,
+  "INVOICE_NO": "2-1-191021-00002",
+  "INVOICE_NO_BBOX": [280, 582, 308, 840],
+  "TIMESTAMP": "21/10/2019 12:26",
+  "TIMESTAMP_BBOX": [348, 298, 375, 610],
+  "PRODUCTS": [
+    {
+      "PRODUCT": "VÉ NGƯỜI LỚN",
+      "PRODUCT_BBOX": [452, 165, 482, 395],
+      "NUM": 2,
+      "NUM_BBOX": [452, 518, 482, 555],
+      "UNIT_PRICE": 278000.0,
+      "UNIT_PRICE_BBOX": [452, 582, 482, 715],
+      "VALUE": 556000.0,
+      "VALUE_BBOX": [452, 748, 482, 880]
+    },
+    {
+      "PRODUCT": "KHĂN LẠNH",
+      "PRODUCT_BBOX": [488, 165, 515, 400],
+      "NUM": 2,
+      "NUM_BBOX": [488, 518, 515, 555],
+      "UNIT_PRICE": 3000.0,
+      "UNIT_PRICE_BBOX": [488, 608, 515, 712],
+      "VALUE": 6000.0,
+      "VALUE_BBOX": [488, 748, 515, 880]
+    },
+    {
+      "PRODUCT": "CAFÉ SỮA ĐÁ",
+      "PRODUCT_BBOX": [552, 165, 580, 398],
+      "NUM": 1,
+      "NUM_BBOX": [552, 518, 580, 555],
+      "UNIT_PRICE": 35000.0,
+      "UNIT_PRICE_BBOX": [532, 582, 560, 742],
+      "VALUE": 35000.0,
+      "VALUE_BBOX": [552, 748, 580, 880]
+    },
+    {
+      "PRODUCT": "TRÀ ĐÀO CAM SẢ",
+      "PRODUCT_BBOX": [585, 165, 615, 425],
+      "NUM": 1,
+      "NUM_BBOX": [585, 518, 615, 555],
+      "UNIT_PRICE": 39000.0,
+      "UNIT_PRICE_BBOX": [585, 608, 615, 712],
+      "VALUE": 39000.0,
+      "VALUE_BBOX": [585, 748, 615, 880]
+    }
+  ],
+  "SUBTOTAL": 636000.0,
+  "TAX": null,
+  "TOTAL_COST": 636000.0,
+  "TOTAL_COST_BBOX": [702, 710, 735, 885],
+  "CASH_RECEIVED": 1000000.0,
+  "CHANGE": 364000.0
+}

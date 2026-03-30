@@ -1,0 +1,22 @@
+api:
+  model_version: "gemini-1.5-flash"
+  generation:
+    temperature: 0.1
+    top_p: 0.9
+    top_k: 40
+  retry:
+    max_retries: 3
+    base_delay: 1.0
+    max_delay: 30.0
+
+prompts:
+  system_prompt_path: "prompts/system_prompt_vn.txt"
+
+preprocessing:
+  max_image_size: 1600
+
+validation:
+  strict_mode: false
+
+normalization:
+  auto_normalize: true

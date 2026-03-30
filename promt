@@ -1,0 +1,55 @@
+Mô hình hoạt động lý tưởng cho bạn:
+Vì code xử lý AI (Gemini) bắt buộc phải chạy bằng Python, nên mô hình của bạn sẽ là:
+
+App Android (Giao diện): Làm bằng Flutter hoặc Kotlin.
+Người dùng dùng cái này để chụp ảnh.
+Backend (Bộ não): Bạn dùng FastAPI (Python) để chạy đoạn code trích xuất hóa đơn của bạn. Server này bạn có thể chạy trên máy tính của mình (hoặc thuê server online).
+Kết nối: App Android gửi ảnh qua cho Backend -> Backend gọi Gemini -> Backend trả JSON về -> App Android hiển thị.
+
+
+Bạn có muốn mình hướng dẫn cách viết một
+
+
+Vì code xử lý AI của bạn đang chạy trên máy tính (Python), nên bạn cần làm như sau để Android "nói chuyện" được với máy tính:
+
+Trên máy tính: Chạy một server (dùng FastAPI hoặc Flask) để "đợi" ảnh từ Android gửi lên.
+Trên Android: Khi người dùng chụp ảnh, app Android sẽ gửi ảnh đó tới địa chỉ IP của máy tính bạn (Ví dụ: http://192.168.1.5:8000/predict).
+Trên máy tính: Nhận ảnh -> Gọi Gemini -> Trả kết quả JSON về Android.
+3. Lộ trình thực hiện cho bạn:
+Bước 1 (Dễ nhất):  vào VS Code (rất nhiều hướng dẫn tiếng Việt trên mạng).
+Bước 2: Tạo một giao diện app Android đơn giản có 1 cái nút "Chụp hóa đơn".
+Bước 3: Viết một đoạn code Python (FastAPI) để thay thế cho cái giao diện Gradio hiện tại, biến nó thành một "Cổng dịch vụ" (API).
+
+
+
+1 Thiết kế giao diện (UI/UX)
+2 Trang chính (Dashboard)
+    Tổng chi tiêu tháng
+    Số hóa đơn đã scan
+    Biểu đồ (pie chart / line chart)
+    Nút lớn: 📸 “Scan ngay”
+3 Màn hình scan hóa đơn
+    Camera + khung scan
+    Auto crop
+    Chỉnh sáng / contrast
+    Upload ảnh từ gallery
+4 Màn hình kết quả AI
+Rất quan trọng:
+
+Cho user sửa lại:
+Tên shop
+Ngày
+Tổng tiền
+Danh sách sản phẩm dạng list:
+Tên + giá
+Nút:
+Lưu
+Xuất PDF
+Xuất Excel
+5 Màn hình thống kê
+
+Tự phân loại (ăn uống, xăng, điện…)
+Xuất Excel / PDF
+Đồng bộ cloud
+Tìm kiếm hóa đơn
+Gắn tag
