@@ -53,7 +53,7 @@ def get_shared_extractor():
         return _extractor
     api_key = os.getenv("GEMINI_API_KEY", "")
     if not api_key:
-        raise ValueError("Chưa cấu hình GEMINI_API_KEY trong file .env")
+        raise ValueError("Chưa cấu hình GEMINI_API_KEY. Vui lòng thiết lập trong .env hoặc Environment Variables.")
     # Khởi tạo 1 con Gemini mặc định
     _extractor = get_extractor(api_key=api_key, model="gemini-flash-latest")
     return _extractor
