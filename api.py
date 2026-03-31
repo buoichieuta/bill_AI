@@ -110,5 +110,6 @@ async def extract_invoice(
 
 if __name__ == "__main__":
     import uvicorn
-    # Chạy ở mọi địa chỉ IP máy tính với cổng 8000
-    uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)
+    # Tự động lấy cổng Port từ máy chủ (Pella/VPS) hoặc mặc định 8000
+    port = int(os.getenv("PORT", os.getenv("SERVER_PORT", 8000)))
+    uvicorn.run("api:app", host="0.0.0.0", port=port, reload=True)
