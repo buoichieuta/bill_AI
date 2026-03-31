@@ -30,6 +30,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ==========================================
+# 0. TRANG CHỦ (ĐỂ KIỂM TRA SERVER)
+# ==========================================
+@app.get("/")
+async def root():
+    return {
+        "status": "online",
+        "message": "Invoice AI Server is running!",
+        "endpoints": {
+            "extract": "/api/extract (POST)",
+            "docs": "/docs (Swagger UI)"
+        }
+    }
+
 _extractor = None
 _detector = None
 
