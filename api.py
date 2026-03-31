@@ -64,7 +64,11 @@ def get_shared_detector():
         return _detector
     model_path = BASE_DIR / "best.pt"
     if model_path.exists():
+        print(f"✅ Tìm thấy model tại: {model_path}. Đang nạp...")
         _detector, _ = get_detector(str(model_path))
+        print("✅ Đã nạp xong model YOLO vào RAM.")
+    else:
+        print(f"❌ KHÔNG tìm thấy file model tại: {model_path}")
     return _detector
 
 # Model sẽ được nạp tự động (Lazy Load) khi có yêu cầu thực tế để server khởi động nhanh hơn.
@@ -90,9 +94,13 @@ async def extract_invoice(
         
         # C. Kéo khung vuông (Bounding Box) bằng YOLO if requested
         if use_local_model:
+            print("🎯 Đang thực hiện nhận diện vùng hóa đơn bằng YOLO (best.pt)...")
             detector = get_shared_detector()
             if detector:
                 image_for_extract, _, _ = detect_invoice_region(enhanced_image, detector)
+                print("✅ Đã cắt xong vùng hóa đơn.")
+            else:
+                print("⚠️ Bỏ qua bước YOLO vì không load được model.")
         
         image_for_extract = filter_for_gemini(image_for_extract, extra_enhance=False)
 
