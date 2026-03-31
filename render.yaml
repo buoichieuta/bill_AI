@@ -9,3 +9,7 @@ services:
         sync: false
       - key: PORT
         value: 10000
+      - key: YOLO_CONFIG_DIR
+        value: /tmp/Ultralytics
+      - key: PYTHON_VERSION
+        value: 3.10.0
