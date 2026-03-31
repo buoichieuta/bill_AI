@@ -67,16 +67,7 @@ def get_shared_detector():
         _detector, _ = get_detector(str(model_path))
     return _detector
 
-@app.on_event("startup")
-async def startup_event():
-    print("🌍 Máy chủ đang khởi động...")
-    print("🤖 Đang nạp Model YOLO & Gemini vào RAM...")
-    try:
-        get_shared_extractor()
-        get_shared_detector()
-        print("✅ Máy chủ SẴN SÀNG nhận ảnh từ Điện thoại!")
-    except Exception as e:
-        print(f"⚠️ Chưa thể nạp AI (Chưa có .env hoặc best.pt?): {e}")
+# Model sẽ được nạp tự động (Lazy Load) khi có yêu cầu thực tế để server khởi động nhanh hơn.
 
 # ==========================================
 # 2. ĐỊA CHỈ API ĐỂ ĐIỆN THOẠI GỬI ẢNH TỚI
