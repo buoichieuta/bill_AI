@@ -44,7 +44,7 @@ def get_detector_model():
     if _detector is None:
         try:
             base_dir = Path(__file__).parent
-            model_path = base_dir / "best.pt"
+            model_path = base_dir / "best.onnx"
             if not model_path.exists():
                 logger.warning(f"⚠️ Không tìm thấy best.pt tại {model_path}")
                 return None

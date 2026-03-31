@@ -70,7 +70,7 @@ def _pick_best_single_box(candidates):
 
 
 def get_detector(model_path: str):
-    """Khởi tạo detector best.pt (YOLO) nếu có."""
+    """Khởi tạo detector best.onnx (YOLO) nếu có."""
     try:
         from ultralytics import YOLO
         return YOLO(model_path), None
