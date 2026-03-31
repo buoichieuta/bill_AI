@@ -1,0 +1,14 @@
+# Môi trường ảo
+venv/
+env/
+__pycache__/
+
+# Biến môi trường ẩn chứa API Key
+.env
+.env.*
+
+# Mô hình cục bộ quá nặng
+best.pt
+
+# Log files
+*.log

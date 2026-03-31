@@ -1,0 +1,38 @@
+{
+  "SELLER": "QUÁ ĐÃ BBQ",
+  "ADDRESS": "171 Cao Thắng, P. 12, Q. 10",
+  "TAX_CODE": null,
+  "INVOICE_NO": "2-1-191021-00002",
+  "TIMESTAMP": "21/10/2019 12:26",
+  "PRODUCTS": [
+    {
+      "PRODUCT": "VÉ NGƯỜI LỚN",
+      "NUM": 2,
+      "UNIT_PRICE": 278000.0,
+      "VALUE": 556000.0
+    },
+    {
+      "PRODUCT": "KHĂN LẠNH",
+      "NUM": 2,
+      "UNIT_PRICE": 3000.0,
+      "VALUE": 6000.0
+    },
+    {
+      "PRODUCT": "CAFÉ SỮA ĐÁ",
+      "NUM": 1,
+      "UNIT_PRICE": 35000.0,
+      "VALUE": 35000.0
+    },
+    {
+      "PRODUCT": "TRÀ ĐÀO CAM SẢ",
+      "NUM": 1,
+      "UNIT_PRICE": 39000.0,
+      "VALUE": 39000.0
+    }
+  ],
+  "SUBTOTAL": 636000.0,
+  "TAX": null,
+  "TOTAL_COST": 636000.0,
+  "CASH_RECEIVED": 1000000.0,
+  "CHANGE": 364000.0
+}

@@ -1,0 +1,8 @@
+run = "uvicorn api:app --host 0.0.0.0 --port 8000"
+entrypoint = "api.py"
+
+[nix]
+channel = "stable-23_05"
+
+[env]
+PYTHONUNBUFFERED = "1"
