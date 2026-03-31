@@ -18,8 +18,8 @@ import okhttp3.Response;
 
 public class ApiService {
 
-    // ⚠️ Đổi IP này thành IP máy tính của bạn (chạy ipconfig)
-    private static final String BASE_URL = "http://192.168.1.98:8000";
+    // URL công khai của Replit VPS
+    private static final String BASE_URL = "https://309b1ed1-7566-4dc5-b4be-a68cbd848acc-00-2by5a2goo0e27.sisko.replit.dev";
 
     private final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -42,6 +42,7 @@ public class ApiService {
                                 MediaType.parse("image/jpeg"), imageFile
                         )
                 )
+                .addFormDataPart("use_local_model", "true")
                 .build();
 
         Request request = new Request.Builder()
