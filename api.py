@@ -62,13 +62,21 @@ def get_shared_detector():
     global _detector
     if _detector:
         return _detector
-    model_path = BASE_DIR / "best.pt"
-    if model_path.exists():
-        print(f"✅ Tìm thấy model tại: {model_path}. Đang nạp...")
-        _detector, _ = get_detector(str(model_path))
-        print("✅ Đã nạp xong model YOLO vào RAM.")
-    else:
-        print(f"❌ KHÔNG tìm thấy file model tại: {model_path}")
+    try:
+        model_path = BASE_DIR / "best.pt"
+        if model_path.exists():
+            print(f"✅ Tìm thấy model tại: {model_path}. Đang nạp...")
+            # Nạp model với timeout/error handling
+            _detector, err = get_detector(str(model_path))
+            if _detector:
+                print("✅ Đã nạp xong model YOLO vào RAM.")
+            else:
+                print(f"⚠️ Không nạp được YOLO: {err}")
+        else:
+            print(f"❌ KHÔNG tìm thấy file model tại: {model_path}")
+    except Exception as e:
+        print(f"❌ Lỗi nghiêm trọng khi nạp model (OOM?): {e}")
+        _detector = None
     return _detector
 
 # Model sẽ được nạp tự động (Lazy Load) khi có yêu cầu thực tế để server khởi động nhanh hơn.
@@ -123,6 +131,10 @@ async def extract_invoice(
 
 if __name__ == "__main__":
     import uvicorn
-    # Tự động lấy cổng Port từ máy chủ (Pella/VPS) hoặc mặc định 8000
+    # Tự động lấy cổng Port từ máy chủ hoặc mặc định 8000
     port = int(os.getenv("PORT", os.getenv("SERVER_PORT", 8000)))
-    uvicorn.run("api:app", host="0.0.0.0", port=port, reload=True)
+    
+    # Trong production (Render/Gunicorn), block này sẽ không chạy vì Gunicorn dùng api:app trực tiếp.
+    # Tuy nhiên nếu chạy test bằng python api.py thì tắt reload để tránh tốn RAM.
+    is_dev = os.getenv("RENDER") is None
+    uvicorn.run("api:app", host="0.0.0.0", port=port, reload=is_dev)
