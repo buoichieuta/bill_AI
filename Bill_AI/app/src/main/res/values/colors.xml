@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primary_blue">#3D6EF5</color>
+    <color name="text_grey">#888888</color>
+    <color name="divider">#EEEEEE</color>
+
+    <!-- Premium Dark Mode Colors -->
+    <color name="true_black">#000000</color>
+    <color name="dark_background">#0a0b10</color>
+    <color name="dark_surface">#1a1c26</color>
+    <color name="glow_blue">#5C8BFF</color>
+    <color name="glow_shadow">#4D3D6EF5</color>
+    <color name="accent_gold">#FFD700</color>
+
+    <color name="settings_outline_red">#E11D48</color>
+    <color name="settings_divider_dark">#2D3748</color>
+
+    <!-- Dynamic Settings Colors (Light values) -->
+    <color name="settings_page_bg">#F8FAFC</color>
+    <color name="settings_card_bg">#FFFFFF</color>
+    <color name="settings_text_main">#0F172A</color>
+    <color name="settings_text_sub">#64748B</color>
+    <color name="settings_icon_tint">#475569</color>
+
+    <!-- Premium Home Overhaul -->
+    <color name="bg_obsidian">#0A0E1A</color>
+    <color name="bg_deep_sea">#141E30</color>
+    <color name="accent_glow">#00D2FF</color>
+    <color name="glass_white">#1AFFFFFF</color>
+    <color name="glass_border">#33FFFFFF</color>
+    <color name="text_premium_blue">#E0EAFF</color>
+    <color name="bg_card_dark">#1E2235</color>
+    <color name="bg_card_glass">#2A2E45</color>
+    <color name="accent_purple">#BB86FC</color>
+    <color name="accent_teal">#03DAC5</color>
+    <color name="spent_red">#FF5252</color>
+    <color name="summary_green">#4CAF50</color>
+    <color name="summary_pink">#E91E63</color>
+    
+    <!-- AI Suggestion Card Themes -->
+    <color name="ai_card_light">#E3F2FD</color>
+    <color name="ai_card_light_text">#1565C0</color>
+    <color name="ai_card_dark">#121826</color>
+    <color name="ai_card_dark_text">#BBDEFB</color>
+
+    <!-- Semantic App-wide Colors (Light Mode) -->
+    <color name="app_bg">#FFFFFF</color>
+    <color name="app_surface">#F8FAFC</color>
+    <color name="app_text_main">#0F172A</color>
+    <color name="app_text_sub">#64748B</color>
+    <color name="app_card_bg">#FFFFFF</color>
+    <color name="app_card_border">#E2E8F0</color>
+    <color name="app_header_bg">#FFFFFF</color> <!-- WHITE HEADER for "home là trắng" -->
+    <color name="app_icon_tint">#475569</color>
+</resources>

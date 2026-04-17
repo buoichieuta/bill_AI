@@ -52,6 +52,11 @@ TIMESTAMP_PATTERNS = (
     r"\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b",
 )
 
+INVOICE_NO_PATTERNS = (
+    r"\b(?:số hóa đơn|hóa đơn số|số HD|HD số|invoice no|invoice number)\s*[:\-]?\s*([A-Z0-9\-/]{3,50})\b",
+    r"\b([A-Z0-9]{3,}-?[0-9]{3,}(-[0-9]+)?)\b",
+)
+
 TAX_CODE_PATTERNS = (
     r"\b(?:mst|ma so thue|mã số thuế|tax code)\s*[:\-]?\s*([0-9]{8,14}(?:-[0-9]{1,3})?)\b",
     r"\b([0-9]{10,14}(?:-[0-9]{1,3})?)\b",

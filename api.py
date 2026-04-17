@@ -62,10 +62,11 @@ def get_detector_model():
 @app.on_event("startup")
 async def startup_event():
     logger.info("Đang khởi động Server...")
-    # Tắt load model lúc khởi động để tránh lỗi Timeout 5 phút của Render
-    # Load mô hình sẽ được dời sang lúc có request đầu tiên
-    # get_extractor()  
-    # get_detector_model()
+    # Load mô hình vào RAM lúc khởi động để tăng tốc độ response
+    logger.info("⏳ Đang load mô hình AI...")
+    get_extractor()  
+    get_detector_model()
+    logger.info("✅ Mô hình đã sẵn sàng")
 
 @app.get("/")
 def read_root():
@@ -172,4 +173,4 @@ if __name__ == "__main__":
     import uvicorn
     # Khởi chạy server ở IP 0.0.0.0 để điện thoại cùng mạng Wifi (Local) có thể kết nối được
     # Port 8000
-    uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=False)

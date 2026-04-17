@@ -12,6 +12,7 @@ QUY TẮC BẮT BUỘC:
 
 CẤU TRÚC JSON OUTPUT:
 {
+  "CATEGORY": "phân loại hóa đơn (Ăn uống, Mua sắm, Di chuyển, Y tế, Giải trí, Khác)",
   "SELLER": "tên cửa hàng/nhà hàng",
   "SELLER_BBOX": [ymin, xmin, ymax, xmax],
   "ADDRESS": "địa chỉ đầy đủ nếu có",
@@ -38,6 +39,14 @@ CẤU TRÚC JSON OUTPUT:
   "CASH_RECEIVED": tiền_khách_đưa_nguyên_hoặc_null,
   "CHANGE": tiền_thối_lại_nguyên_hoặc_null
 }
+
+QUY TẮC PHÂN LOẠI (CATEGORY):
+- "Ăn uống": Nhà hàng, quán café, quán ăn, trà sữa...
+- "Mua sắm": Siêu thị, cửa hàng tiện lợi, shop quần áo, đồ gia dụng...
+- "Di chuyển": Taxi, Grab, vé máy bay, vé tàu xe, xăng dầu...
+- "Y tế": Nhà thuốc, bệnh viện, phòng khám...
+- "Giải trí": Rạp phim, khu vui chơi, karaoke...
+- "Khác": Các trường hợp không thuộc các nhóm trên.
 
 LƯU Ý ĐẶC BIỆT CHO HÓA ĐƠN VIỆT NAM:
 - "Tổng cộng" / "Total" / "TỔNG CỘNG" = TOTAL_COST

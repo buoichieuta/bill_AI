@@ -134,7 +134,8 @@ class GeminiInvoiceExtractor:
         }
 
         n = len(data.get('PRODUCTS', []))
-        logger.info(f"✅ Xong — {n} sản phẩm | model: {data['_meta']['model']}")
+        category = data.get('CATEGORY', 'N/A')
+        logger.info(f"✅ Xong — {n} sản phẩm | Phân loại: {category} | model: {data['_meta']['model']}")
         return data
 
     def extract_and_display(self, image_input, prompt="Trích xuất toàn bộ thông tin hóa đơn này"):
@@ -221,7 +222,8 @@ class GeminiInvoiceExtractor:
         """Lấy thông tin cơ bản bằng regex khi JSON parse thất bại"""
         result = {
             "SELLER": "", "ADDRESS": "", "TAX_CODE": None,
-            "INVOICE_NO": "", "TIMESTAMP": "", "PRODUCTS": [],
+            "INVOICE_NO": "", "TIMESTAMP": "", "CATEGORY": "",
+            "TIMESTAMP": "", "PRODUCTS": [],
             "TOTAL_COST": 0.0, "CASH_RECEIVED": None, "CHANGE": None,
             "_parse_error": "JSON parse failed"
         }
@@ -229,6 +231,7 @@ class GeminiInvoiceExtractor:
             ("SELLER",     r'"SELLER"\s*:\s*"([^"]+)"'),
             ("TIMESTAMP",  r'"TIMESTAMP"\s*:\s*"([^"]+)"'),
             ("INVOICE_NO", r'"INVOICE_NO"\s*:\s*"([^"]+)"'),
+            ("CATEGORY",   r'"CATEGORY"\s*:\s*"([^"]+)"'),
         ]:
             m = re.search(pattern, text)
             if m: result[field] = m.group(1)
@@ -263,6 +266,13 @@ class GeminiInvoiceExtractor:
             products = data.get("PRODUCTS", [])
             if products and data.get("TOTAL_COST"):
                 self.validator.validate_total(products, data["TOTAL_COST"])
+
+            # Thêm phân loại category (chỉ nếu AI chưa có)
+            if not data.get("CATEGORY"):
+                data["CATEGORY"] = self._classify_category(data)
+                logger.info(f"🏷️ Dùng fallback category: {data['CATEGORY']}")
+            else:
+                logger.debug(f"🏷️ AI category: {data['CATEGORY']}")
 
         except Exception as e:
             logger.error(f"Validate lỗi: {e}")
@@ -310,6 +320,56 @@ class GeminiInvoiceExtractor:
                 p["VALUE"] = round(val, 0)
 
         return data
+
+
+# ─────────────────────────────────────────────────────────────
+# Category Classification
+# ─────────────────────────────────────────────────────────────
+
+    def _classify_category(self, data: Dict) -> str:
+        """Phân loại loại hóa đơn dựa trên SELLER và PRODUCTS"""
+        text = ""
+        seller = data.get("SELLER", "").upper()
+        text += seller + " "
+        
+        products = data.get("PRODUCTS", [])
+        for p in products:
+            product_name = p.get("PRODUCT", "").upper()
+            text += product_name + " "
+        
+        text = text.strip()
+        
+        # Keywords cho từng category
+        categories = {
+            "Ăn uống": [
+                "BBQ", "CAFÉ", "NHÀ HÀNG", "QUÁN", "ĂN", "UỐNG", "ĐỒ ĂN", "ĐỒ UỐNG",
+                "CÀ PHÊ", "TRÀ", "NƯỚC", "BÁNH", "PHỞ", "CƠM", "MÌ", "GÀ", "BÒ",
+                "HEINEKEN", "BIA", "RƯỢU", "SUSHI", "RESTAURANT", "NHÀ HÀNG", "QUÁN ĂN",
+                "Đồ uống", "Đồ ăn", "CƠM CUỘN", "GÀ CHIÊN", "CÁ HỒI", "BÁNH HẢI SẢN"
+            ],
+            "Di chuyển": [
+                "VÉ", "TAXI", "XE BUÝT", "MÁY BAY", "DI CHUYỂN", "VẬN TẢI",
+                "GRAB", "BE", "TAXI", "BUS", "AIRLINE", "VÉ MÁY BAY", "VÉ XE",
+                "NGƯỜI LỚN", "TRẺ EM"  # từ ví dụ
+            ],
+            "Mua sắm": [
+                "SIÊU THỊ", "CỬA HÀNG", "MUA SẮM", "BÁN LẺ", "MART", "SHOP",
+                "CO.OP", "BIG C", "LOTTE", "VINMART", "KHĂN", "QUẦN ÁO", "ĐIỆN TỬ"
+            ],
+            "Y tế": [
+                "BỆNH VIỆN", "PHÒNG KHÁM", "THUỐC", "BÁC SĨ", "Y TẾ", "KHÁM BỆNH"
+            ],
+            "Giải trí": [
+                "RẠP CHIẾU PHIM", "CINEMA", "CGV", "LOTTEMART", "SÂN KHẤU", "CONCERT"
+            ]
+        }
+        
+        for cat, keywords in categories.items():
+            for kw in keywords:
+                if kw.upper() in text:
+                    return cat
+        
+        return "Khác"
 
 
 # ─────────────────────────────────────────────────────────────

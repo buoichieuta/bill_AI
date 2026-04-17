@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Nền lưới 3x3 -->
+    <item>
+        <shape>
+            <stroke android:width="1dp" android:color="#4D00FFCC"/>
+        </shape>
+    </item>
+    
+    <!-- Các đường lưới dọc -->
+    <item android:left="106dp" android:right="212dp">
+        <shape><solid android:color="#4D00FFCC"/></shape>
+    </item>
+    <item android:left="212dp" android:right="106dp">
+        <shape><solid android:color="#4D00FFCC"/></shape>
+    </item>
+
+    <!-- Các đường lưới ngang -->
+    <item android:top="133dp" android:bottom="266dp">
+        <shape><solid android:color="#4D00FFCC"/></shape>
+    </item>
+    <item android:top="266dp" android:bottom="133dp">
+        <shape><solid android:color="#4D00FFCC"/></shape>
+    </item>
+
+    <!-- Các góc khung (Brackets) -->
+    <!-- Trên Trái -->
+    <item android:width="40dp" android:height="40dp" android:gravity="top|left">
+        <shape>
+            <stroke android:width="4dp" android:color="#00FFCC"/>
+        </shape>
+    </item>
+    <!-- Trên Phải -->
+    <item android:width="40dp" android:height="40dp" android:gravity="top|right">
+        <shape>
+            <stroke android:width="4dp" android:color="#00FFCC"/>
+        </shape>
+    </item>
+    <!-- Dưới Trái -->
+    <item android:width="40dp" android:height="40dp" android:gravity="bottom|left">
+        <shape>
+            <stroke android:width="4dp" android:color="#00FFCC"/>
+        </shape>
+    </item>
+    <!-- Dưới Phải -->
+    <item android:width="40dp" android:height="40dp" android:gravity="bottom|right">
+        <shape>
+            <stroke android:width="4dp" android:color="#00FFCC"/>
+        </shape>
+    </item>
+
+    <!-- Một lớp che đi phần giữa của stroke để tạo hình bracket -->
+    <item android:top="4dp" android:left="4dp" android:right="4dp" android:bottom="4dp">
+        <shape><solid android:color="#00000000"/></shape>
+    </item>
+</layer-list>

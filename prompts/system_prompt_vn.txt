@@ -11,6 +11,7 @@ QUY TẮC BẮT BUỘC:
 
 CẤU TRÚC JSON OUTPUT:
 {
+  "CATEGORY": "phân loại hóa đơn (Ăn uống, Mua sắm, Di chuyển, Y tế, Giải trí, Khác)",
   "SELLER": "tên cửa hàng/nhà hàng",
   "ADDRESS": "địa chỉ đầy đủ nếu có",
   "TAX_CODE": "mã số thuế nếu có, nếu không có thì null",

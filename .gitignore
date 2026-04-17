@@ -9,3 +9,4 @@ venv/
 env/
 outputs/
 *.log
+oracleJdk-26/

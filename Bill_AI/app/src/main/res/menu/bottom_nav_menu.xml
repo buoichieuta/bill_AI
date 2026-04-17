@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@android:drawable/ic_menu_today"
+        android:title="Trang chu"/>
+
+    <item
+        android:id="@+id/nav_invoice"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Hoa don"/>
+
+    <item
+        android:id="@+id/nav_report"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="Thống kê"/>
+
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="Cai dat"/>
+
+</menu>

@@ -13,6 +13,8 @@ def to_table(data: dict):
     print(f"  🕒  {data.get('TIMESTAMP', 'N/A')}")
     if data.get('INVOICE_NO'):
         print(f"  📋  HD: {data['INVOICE_NO']}")
+    if data.get('CATEGORY'):
+        print(f"  🏷️  Loại: {data['CATEGORY']}")
     print("═" * 60)
 
     products = data.get("PRODUCTS", [])

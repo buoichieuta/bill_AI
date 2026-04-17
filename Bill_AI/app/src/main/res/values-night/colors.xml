@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings colors (kept for compatibility) -->
+    <color name="settings_page_bg">#0A0E1A</color>
+    <color name="settings_card_bg">#1C2431</color>
+    <color name="settings_text_main">#FFFFFF</color>
+    <color name="settings_text_sub">#94A3B8</color>
+    <color name="settings_icon_tint">#94A3B8</color>
+
+    <!-- Semantic App-wide Colors (Night Mode - Obsidian Dark) -->
+    <color name="app_bg">#0A0E1A</color>
+    <color name="app_surface">#121826</color>
+    <color name="app_text_main">#FFFFFF</color>
+    <color name="app_text_sub">#94A3B8</color>
+    <color name="app_card_bg">#1C2431</color>
+    <color name="app_card_border">#2D3748</color>
+    <color name="app_header_bg">#1A2C5A</color>
+    <color name="app_icon_tint">#CBD5E1</color>
+</resources>

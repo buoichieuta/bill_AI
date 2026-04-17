@@ -16,16 +16,13 @@ from loguru import logger
 
 # Tên model đúng cho google.genai SDK (không dùng gemini-1.5-flash nữa)
 FALLBACK_MODELS = [
-    # "gemini-flash-latest",
-    # "gemini-2.0-flash",
-    # "gemini-2.0-flash-lite",
+    "gemini-flash-latest",
     "gemini-2.5-flash",
     "gemini-2.5-pro",
 ]
 
 
 API_TIMEOUT_SECONDS = 60
-
 
 class GeminiClient:
     def __init__(self, config):

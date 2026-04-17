@@ -165,6 +165,7 @@ def build_overlay(image: Image.Image, data: dict) -> Image.Image:
 def build_result_html(data: dict, elapsed: float) -> str:
     """HTML card hiển thị kết quả"""
     seller   = data.get("SELLER", "N/A")
+    category = data.get("CATEGORY", "Khác")
     address  = data.get("ADDRESS", "")
     ts       = data.get("TIMESTAMP", "")
     inv_no   = data.get("INVOICE_NO", "")
@@ -223,6 +224,7 @@ def build_result_html(data: dict, elapsed: float) -> str:
     <div style="font-family:'IBM Plex Mono',monospace;background:#0f172a;border-radius:12px;padding:20px;color:#e2e8f0">
       <div style="padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid #1e293b">
         <div style="font-size:17px;font-weight:700;color:#f8fafc">🛒 {seller}</div>
+        <div style="color:#94a3b8;font-size:13px">🏷️ Loại: {category}</div>
         {addr_row}{inv_row}{file_row}
         <div style="display:flex;gap:14px;margin-top:6px;flex-wrap:wrap;font-size:12px;color:#64748b">
           <span>🕒 {ts}</span>
@@ -256,7 +258,7 @@ def generate_csv_string(data: dict) -> str:
     output = io.StringIO()
     writer = csv.writer(output)
     writer.writerow([
-        "Người bán", "Địa chỉ", "Mã số thuế", "Số hóa đơn", "Thời gian",
+        "Người bán", "Loại", "Địa chỉ", "Mã số thuế", "Số hóa đơn", "Thời gian",
         "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền",
         "Tổng cộng", "Tiền khách đưa", "Tiền thối"
     ])
@@ -266,7 +268,7 @@ def generate_csv_string(data: dict) -> str:
 
     for p in products:
         writer.writerow([
-            data.get("SELLER", ""), data.get("ADDRESS", ""), data.get("TAX_CODE", ""),
+            data.get("SELLER", ""), data.get("CATEGORY", ""), data.get("ADDRESS", ""), data.get("TAX_CODE", ""),
             data.get("INVOICE_NO", ""), data.get("TIMESTAMP", ""),
             p.get("PRODUCT", ""), p.get("NUM", ""), p.get("UNIT_PRICE", ""), p.get("VALUE", ""),
             data.get("TOTAL_COST", ""), data.get("CASH_RECEIVED", ""), data.get("CHANGE", "")
@@ -305,14 +307,14 @@ def save_csv(data: dict, base_dir: Path) -> str:
     with open(file_path, mode="w", encoding="utf-8-sig", newline="") as f:
         writer = csv.writer(f)
         writer.writerow([
-            "Người bán", "Địa chỉ", "Mã số thuế", "Số hóa đơn", "Thời gian",
+            "Người bán", "Loại", "Địa chỉ", "Mã số thuế", "Số hóa đơn", "Thời gian",
             "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền",
             "Tổng cộng", "Tiền khách đưa", "Tiền thối"
         ])
             
         for p in products:
             writer.writerow([
-                data.get("SELLER", ""), data.get("ADDRESS", ""), data.get("TAX_CODE", ""),
+                data.get("SELLER", ""), data.get("CATEGORY", ""), data.get("ADDRESS", ""), data.get("TAX_CODE", ""),
                 data.get("INVOICE_NO", ""), data.get("TIMESTAMP", ""),
                 p.get("PRODUCT", ""), p.get("NUM", ""), p.get("UNIT_PRICE", ""), p.get("VALUE", ""),
                 data.get("TOTAL_COST", ""), data.get("CASH_RECEIVED", ""), data.get("CHANGE", "")

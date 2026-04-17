@@ -68,6 +68,41 @@ def _pick_best_single_box(candidates):
     }
 
 
+def _merge_all_boxes(candidates, img_width: int, img_height: int):
+    """
+    Merge all detected field boxes into one bounding box.
+    This method encompasses all detected fields with padding.
+    """
+    if not candidates:
+        return None, None
+    
+    # Find bounds of all boxes
+    all_x1 = [c["x1"] for c in candidates]
+    all_y1 = [c["y1"] for c in candidates]
+    all_x2 = [c["x2"] for c in candidates]
+    all_y2 = [c["y2"] for c in candidates]
+    
+    merged_x1 = min(all_x1)
+    merged_y1 = min(all_y1)
+    merged_x2 = max(all_x2)
+    merged_y2 = max(all_y2)
+    
+    # Add padding (5% of image dimensions)
+    padding_x = int(img_width * 0.05)
+    padding_y = int(img_height * 0.05)
+    
+    merged_x1 = max(0, merged_x1 - padding_x)
+    merged_y1 = max(0, merged_y1 - padding_y)
+    merged_x2 = min(img_width, merged_x2 + padding_x)
+    merged_y2 = min(img_height, merged_y2 + padding_y)
+    
+    return (merged_x1, merged_y1, merged_x2, merged_y2), {
+        "detector_strategy": "merged_fields",
+        "detector_boxes_used": len(candidates),
+        "detector_top_class": "INVOICE_REGION",
+        "detector_score": round(sum(c["conf"] for c in candidates) / len(candidates), 4),
+    }
+
 
 def get_detector(model_path: str):
     """Khởi tạo detector best.onnx (YOLO) nếu có."""
@@ -96,13 +131,13 @@ def detect_invoice_region(image: Image.Image, detector):
 
         w, h = image.size
         img_area = float(max(1, w * h))
-        min_area_ratio = 0.08
+        min_area_ratio = 0.04
 
         candidates = _collect_detection_candidates(boxes, detector, w, h)
         if not candidates:
             return image, None, "Detector không có bbox hợp lệ"
 
-        picked_box, meta = _pick_best_single_box(candidates)
+        picked_box, meta = _merge_all_boxes(candidates, w, h)
 
         if picked_box is None or meta is None:
             return image, None, "Detector không tạo được vùng crop hợp lệ"

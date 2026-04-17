@@ -14,6 +14,7 @@ from src.utils import (
     CASH_KEYWORDS,
     CHANGE_KEYWORDS,
     TAX_CODE_PATTERNS,
+    INVOICE_NO_PATTERNS,
     TIMESTAMP_PATTERNS
 )
 
@@ -182,14 +183,51 @@ def build_rule_draft(
         "SELLER_HINT": seller_hint or (ocr_lines[0]["text"] if ocr_lines else ""),
         "ADDRESS_HINT": address_hint,
         "TAX_CODE_HINT": _find_first_regex(_normalized_text(text_blob), TAX_CODE_PATTERNS),
-        "INVOICE_NO_HINT": invoice_hint,
+        "INVOICE_NO_HINT": invoice_hint or _find_first_regex(_normalized_text(text_blob), INVOICE_NO_PATTERNS),
         "TIMESTAMP_HINT": timestamp_hint or _find_first_regex(text_blob, TIMESTAMP_PATTERNS),
+        "CATEGORY_HINT": _classify_category_from_text(text_blob),
         "TOTAL_HINT": total_from_line if total_from_line is not None else _parse_amount_from_text(total_hint_text),
         "CASH_RECEIVED_HINT": cash_from_line if cash_from_line is not None else _parse_amount_from_text(cash_hint_text),
         "CHANGE_HINT": change_from_line if change_from_line is not None else _parse_amount_from_text(change_hint_text),
         "PRODUCT_CANDIDATES": product_candidates[:12],
         "FIELD_VALUES": field_values[:48],
     }
+
+
+def _classify_category_from_text(text: str) -> str:
+    """Phân loại category từ text OCR"""
+    text_upper = text.upper()
+    
+    categories = {
+        "Ăn uống": [
+            "BBQ", "CAFÉ", "NHÀ HÀNG", "QUÁN", "ĂN", "UỐNG", "ĐỒ ĂN", "ĐỒ UỐNG",
+            "CÀ PHÊ", "TRÀ", "NƯỚC", "BÁNH", "PHỞ", "CƠM", "MÌ", "GÀ", "BÒ",
+            "HEINEKEN", "BIA", "RƯỢU", "SUSHI", "RESTAURANT", "NHÀ HÀNG", "QUÁN ĂN",
+            "Đồ uống", "Đồ ăn", "CƠM CUỘN", "GÀ CHIÊN", "CÁ HỒI", "BÁNH HẢI SẢN"
+        ],
+        "Di chuyển": [
+            "VÉ", "TAXI", "XE BUÝT", "MÁY BAY", "DI CHUYỂN", "VẬN TẢI",
+            "GRAB", "BE", "BUS", "AIRLINE", "VÉ MÁY BAY", "VÉ XE",
+            "NGƯỜI LỚN", "TRẺ EM"
+        ],
+        "Mua sắm": [
+            "SIÊU THỊ", "CỬA HÀNG", "MUA SẮM", "BÁN LẺ", "MART", "SHOP",
+            "CO.OP", "BIG C", "LOTTE", "VINMART", "KHĂN", "QUẦN ÁO", "ĐIỆN TỬ"
+        ],
+        "Y tế": [
+            "BỆNH VIỆN", "PHÒNG KHÁM", "THUỐC", "BÁC SĨ", "Y TẾ", "KHÁM BỆNH"
+        ],
+        "Giải trí": [
+            "RẠP CHIẾU PHIM", "CINEMA", "CGV", "LOTTEMART", "SÂN KHẤU", "CONCERT"
+        ]
+    }
+    
+    for cat, keywords in categories.items():
+        for kw in keywords:
+            if kw.upper() in text_upper:
+                return cat
+    
+    return "Khác"
 
 
 def load_extraction_prompt_template(prompt_template_path: Optional[os.PathLike] = None) -> str:
@@ -204,14 +242,26 @@ def load_extraction_prompt_template(prompt_template_path: Optional[os.PathLike] 
         '  "TAX_CODE": "",\n'
         '  "INVOICE_NO": "",\n'
         '  "TIMESTAMP": "",\n'
+        '  "CATEGORY": "",\n'
         '  "PRODUCTS": [{"PRODUCT": "", "NUM": 1, "UNIT_PRICE": 0, "VALUE": 0}],\n'
         '  "TOTAL_COST": 0,\n'
         '  "CASH_RECEIVED": 0,\n'
         '  "CHANGE": 0\n'
         "}\n\n"
+        "Rules:\n"
+        "1. Extract text exactly as shown in Vietnamese.\n"
+        "2. For PRODUCTS, capture complete product descriptions including unit prices.\n"
+        "3. NUM should be numeric (convert if needed).\n"
+        "4. VALUE should be numeric without currency symbols.\n"
+        "5. TOTAL_COST is the final total amount.\n"
+        "6. Extract TAX_CODE and INVOICE_NO if visible.\n"
+        "7. CATEGORY: Classify invoice type (Ăn uống, Di chuyển, Mua sắm, Y tế, Giải trí, Khác).\n"
+        "8. If a field is not found, use empty string "" or empty array [].\n"
+        "9. Preserve Vietnamese diacritics accurately.\n"
+        "10. Keep only real line items in PRODUCTS (exclude subtotal/total/payment lines).\n\n"
         "OCR lines with bbox:\n{{OCR_LINES}}\n\n"
         "Rule-based draft:\n{{RULE_DRAFT}}\n\n"
-        "Output only valid JSON."
+        "Output only valid JSON, no additional text."
     )
 
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "146148810799",
+    "project_id": "toan-0712",
+    "storage_bucket": "toan-0712.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146148810799:android:0352a9aad2bb3eefc4a6da",
+        "android_client_info": {
+          "package_name": "com.example.bill_ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT0tKDELFvaQD8DSPHHsfbc3ca4hgG5GM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
